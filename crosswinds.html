@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Crosswinds</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            border-radius: 0;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 90%;
+            max-width: 700px;
+            border-top: 4px solid #5cbf90;
+        }
+        h1 {
+            margin-top: 0;
+            color: #002b49;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+        }
+        .logo {
+            margin-bottom: 20px;
+            color: #002b49;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            font-size: 1.6rem;
+            display: inline-block;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #5cbf90;
+        }
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        .time-segment {
+            margin: 0 12px;
+            min-width: 80px;
+        }
+        .time-value {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #002b49;
+            display: block;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+        .time-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #5cbf90;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+        .divider {
+            display: none;
+        }
+        .celebration {
+            font-size: 1.6rem;
+            margin-top: 15px;
+            color: #002b49;
+        }
+        .accent-line {
+            width: 50px;
+            height: 3px;
+            background-color: #5cbf90;
+            margin: 0 auto 30px;
+        }
+        @media (max-width: 600px) {
+            .countdown {
+                flex-wrap: wrap;
+            }
+            .time-segment {
+                margin: 10px;
+                min-width: 70px;
+            }
+            .time-value {
+                font-size: 2.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">CROSSWINDS</div>
+        <h1>Countdown 🎉</h1>
+        <div class="accent-line"></div>
+        <div class="countdown">
+            <div class="time-segment">
+                <span class="time-value" id="days">00</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-segment">
+                <span class="time-value" id="hours">00</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-segment">
+                <span class="time-value" id="minutes">00</span>
+                <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-segment">
+                <span class="time-value" id="seconds">00</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set the target date: March 3, 2025 at 00:00:00 Central Time
+        const targetDate = new Date('2025-03-03T00:00:00-06:00').getTime();
+
+        // Update the countdown every second
+        const countdown = setInterval(function() {
+            // Get the current date and time
+            const now = new Date().getTime();
+            
+            // Calculate the time remaining
+            const timeRemaining = targetDate - now;
+            
+            // Calculate days, hours, minutes, and seconds
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+            
+            // Display the results
+            document.getElementById("days").textContent = days.toString().padStart(2, '0');
+            document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+            
+            // If the countdown is over, display a message
+            if (timeRemaining < 0) {
+                clearInterval(countdown);
+                document.querySelector(".countdown").innerHTML = "<div class='celebration'>Crosswinds has arrived!</div>";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
